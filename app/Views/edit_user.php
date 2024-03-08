@@ -132,7 +132,7 @@
                             <div class="col-12 col-lg-6 my-2">
                                 <label for="country" class="form-label fw-medium fs-5">Country</label>
                                 <select class="form-select" aria-label="country" name="country"
-                                        onchange="loadState(this.value)">
+                                        onchange="loadState()">
                                     <option selected disabled>-- Select Highest Qualification --</option>
                                     <!-- load your country options here  -->
                                     <?php if (isset($countries)): ?>
@@ -146,8 +146,8 @@
                             <!-- State of Residence-->
                             <div class="col-12 col-lg-6 my-2">
                                 <label for="state" class="form-label fw-medium fs-5">State of Residence</label>
-                                <select id="stateDropdown" class="form-select" aria-label="state" name="state" disabled
-                                        onchange="loadCity(this.value)">
+                                <select id="stateDropdown" class="form-select" aria-label="state" name="state"
+                                        onchange="loadCity()">
                                     <option selected disabled>-- Select state --</option>
                                     <!-- load your state options here  -->
                                     <?php if (isset(session()->states)): ?>
@@ -162,7 +162,7 @@
                             <div class="col-12 col-lg-6 my-2">
                                 <label for="city" class="form-label fw-medium fs-5">City of Residence</label>
                                 <select class="form-select" aria-label="city" name="city" disabled>
-                                    <option selected disabled>-- Select Highest Qualification --</option>
+                                    <option selected >-- Select Highest Qualification --</option>
                                     <!-- load your city options here  -->
                                 </select>
                             </div>

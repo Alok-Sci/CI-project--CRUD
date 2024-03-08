@@ -125,7 +125,7 @@
                 <!-- Country of Residence-->
                 <div class="col-12 col-lg-6 my-2">
                   <label for="country" class="form-label fw-medium fs-5">Country</label>
-                  <select id="countryDropdown" class="form-select" aria-label="country" name="country" onchange="loadState(this.value)">
+                  <select id="countryDropdown" class="form-select" aria-label="country" name="country" onload="handleEvent()" onchange="handleEvent()">
                     <option selected disabled>-- Select Highest Qualification --</option>
                     <!-- load your country options here  -->
                     <?php if (isset($countries)): ?>
@@ -142,7 +142,7 @@
                 <div class="col-12 col-lg-6 my-2">
                   <label for="state" class="form-label fw-medium fs-5">State of Residence</label>
                   <select id="stateDropdown" class="form-select" aria-label="state" name="state" disabled
-                          onchange="loadCity(this.value)">
+                          onload="loadCity(this.value)" onchange="loadCity(this.value)">
                     <option selected disabled>-- Select state --</option>
 
                   </select>
