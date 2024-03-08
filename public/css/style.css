@@ -1,0 +1,49 @@
+*
+{
+    font-family: "Zilla Slab", serif;
+}
+body{
+    overflow-x: hidden;
+
+}
+
+.nav
+{
+    .nav-item
+    {
+        text-decoration: underline;
+
+        &:hover
+        {
+            text-decoration: none;
+            font-weight: bold;
+        }
+    }
+}
+
+.navbar-nav {
+    .nav-item{
+        font-weight: bold;
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+}
+
+.modify-btn{
+    text-decoration: none !important;
+    &:hover {
+        background-color: rgba(0,0,0,0.2) !important;
+    }
+}
+/* .social-icons [class^="fa-"]
+{
+    text-decoration: underline !important;
+    color: blue;
+
+}
+
+.social-icons [class^="fa-"]:hover
+{
+    transform: scale(1.1) !important;
+} */
