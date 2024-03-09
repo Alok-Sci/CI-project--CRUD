@@ -54,12 +54,12 @@
                                         <td><?= $user->dob ?></td>
                                         <td><?= $user->gender ?></td>
                                         <!-- <td></td> -->
-                                        <td><a href="<?= base_url('/user/edit/') . $user->id ?>"
+                                        <td><a href="<?= base_url('/user/' . $user->id . '/edit')?>"
                                                class="btn modify-btn"><i class="fa-solid fa-pencil pe-3"></i>Edit</a></td>
-                                        <td><a href="<?= base_url('/user/view/') . $user->id ?>"
+                                        <td><a href="<?= base_url('/user/' . $user->id . '/view')?>"
                                                class="btn modify-btn"><i class="fa-solid fa-eye pe-3"></i>View</a></td>
                                         <td><a class="btn btn-danger"
-                                               href="<?= base_url('/user/delete/') . $user->id ?>"><i class="fa-solid fa-trash-can pe-3"></i>Delete</a>
+                                               href="<?= base_url('/user/' . $user->id . '/delete')?>"><i class="fa-solid fa-trash-can pe-3"></i>Delete</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
