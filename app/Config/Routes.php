@@ -20,10 +20,10 @@ $routes->post('user/add', 'UserController::add');
 
 $routes->get('user/list', 'UserController::list');
 
-$routes->get('user/edit/(:num)', 'UserController::editUser/$1');
-$routes->post('user/edit/(:num)', 'UserController::editUser/$1');
-$routes->get('user/view/(:num)', 'UserController::viewUser/$1');
-$routes->get('user/delete/(:num)', 'UserController::deleteUser/$1');
+$routes->get('user/(:num)/edit', 'UserController::editUser/$1');
+$routes->post('user/(:num)/edit', 'UserController::editUser/$1');
+$routes->get('user/(:num)/view', 'UserController::viewUser/$1');
+$routes->get('user/(:num)/delete', 'UserController::deleteUser/$1');
 
 $routes->get('user/country/(:num)', 'UserController::loadStateByCountry/$1');
-$routes->get('user/country/(:num)/state/(:num)', 'UserController::loadCityByStateAndCountry/$1/$1');
+$routes->get('user/country/(:num)/state/(:num)', 'UserController::loadCityByStateAndCountry/$1/$2');
