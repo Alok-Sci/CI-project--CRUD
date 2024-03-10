@@ -122,11 +122,12 @@
                   </select>
                 </div>
 
+
                 <!-- Country of Residence-->
                 <div class="col-12 col-lg-6 my-2">
                   <label for="country" class="form-label fw-medium fs-5">Country</label>
-                  <select id="countryDropdown" class="form-select" aria-label="country" name="country" onload="handleEvent()" onchange="handleEvent()">
-                    <option selected disabled>-- Select Highest Qualification --</option>
+                  <select id="countryDropdown" class="form-select" aria-label="country" name="country">
+                    <option value="" selected disabled>-- Select Highest Qualification --</option>
                     <!-- load your country options here  -->
                     <?php if (isset($countries)): ?>
                       <?php foreach ($countries as $country): ?>
@@ -141,18 +142,16 @@
                 <!-- State of Residence-->
                 <div class="col-12 col-lg-6 my-2">
                   <label for="state" class="form-label fw-medium fs-5">State of Residence</label>
-                  <select id="stateDropdown" class="form-select" aria-label="state" name="state" disabled
-                          onload="loadCity(this.value)" onchange="loadCity(this.value)">
-                    <option selected disabled>-- Select state --</option>
-
+                  <select id="stateDropdown" class="form-select" aria-label="state" name="state">
+                    <option value="" disabled selected>-- Select state --</option>
                   </select>
                 </div>
 
                 <!-- City of Residence-->
                 <div class="col-12 col-lg-6 my-2">
                   <label for="city" class="form-label fw-medium fs-5">City of Residence</label>
-                  <select id="cityDropdown" class="form-select" aria-label="city" name="city" disabled>
-                    <option selected disabled>-- Select Highest Qualification --</option>
+                  <select id="cityDropdown" class="form-select" aria-label="city" name="city">
+                    <option value="" disabled selected>-- Select city --</option>
                   </select>
                 </div>
 
