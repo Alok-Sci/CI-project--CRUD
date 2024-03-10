@@ -102,9 +102,17 @@ class UserModel extends Model
         return $this->db->table('tbl_city')->get()->getResult();
     }
 
+    public function getSelectedStateByCountry($user_id, $country_id)
+    {
+        return $this->db->table('tbl_user')->where(['id' => $user_id, 'country_id' => $country_id])->get()->getResult();
+    }
     public function getStateByCountry($country_id)
     {
         return $this->db->table('tbl_state')->where(['country_id' => $country_id])->get()->getResult();
+    }
+    public function getSelectedCityByStateAndCountry($user_id, $country_id, $state_id)
+    {
+        return $this->db->table('tbl_user')->where(['id' => $user_id, 'country_id' => $country_id, 'state_id' => $state_id])->get()->getResult();
     }
     public function getCityByStateAndCountry($country_id, $state_id)
     {
