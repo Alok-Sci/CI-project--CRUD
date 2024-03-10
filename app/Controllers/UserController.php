@@ -140,11 +140,12 @@ class UserController extends BaseController
     }
     public function editUser($user_id)
     {
+        session()->setFlashdata("edit_id", $user_id, );
         if (isset(session()->logged_in)) {
             if ($this->request->getMethod() === 'get') {
                 $userData    = $this->userModel->getUser($user_id);
                 $countries   = $this->userModel->getCountry();
-                $tech_skills = explode(",", $userData[0]->tech_skills);
+                $tech_skills = explode(", ", $userData[0]->tech_skills);
 
                 $data = [
                     'title' => 'Edit User',
@@ -171,18 +172,29 @@ class UserController extends BaseController
                 $data['city']          = $this->request->getPost('city');
                 $data['pincode']       = $this->request->getPost('pincode');
                 $data['qualification'] = $this->request->getPost('qualification');
-                $data['tech_skills']   = implode(",", $this->request->getPost('tech_skills'));
+                $data['tech_skills']   = implode(", ", $this->request->getPost('tech_skills'));
                 $data['description']   = $this->request->getPost('description');
-                $data['profile_pic']   = $this->request->getFile('profile_pic')->getName();
-                $data['sign_pic']      = $this->request->getFile('sign_pic')->getName();
+
+                // if files are not valid then 
+                if ($this->request->getFile('profile_pic')->isValid()) {
+                    $data['profile_pic'] = $this->request->getFile('profile_pic')->getName() . time();
+                }
+
+                if ($this->request->getFile('sign_pic')->isValid()) {
+                    $data['sign_pic'] = $this->request->getFile('sign_pic')->getName() . time();
+                }
 
                 $updated = $this->userModel->updateUser($user_id, $data);
                 if ($updated) {
                     // move file to uploads folder
-                    $this->request->getFile('profile_pic')->move(WRITEPATH . 'uploads/profile', $data['profile_pic']);
-                    $this->request->getFile('sign_pic')->move(WRITEPATH . 'uploads/sign', $data['sign_pic']);
+                    if (isset($data['profile_pic'])) {
+                        $this->request->getFile('profile_pic')->move(FCPATH . '/uploads/profile/', $data['profile_pic']);
+                    }
+                    if (isset($data['sign_pic'])) {
+                        $this->request->getFile('sign_pic')->move(FCPATH . '/uploads/sign/', $data['sign_pic']);
+                    }
 
-                    return redirect()->to("/user/edit/" . $user_id)->with('success', 'User information updated successfully');
+                    return redirect()->to("/user/$user_id/edit/")->with('success', 'User information updated successfully');
                 } else {
                     return redirect()->back()->with('error', 'Some error occurred while registering user');
                 }

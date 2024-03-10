@@ -5,11 +5,12 @@
         <div class="col-12">
 
             <form class="card border border-light-subtle rounded-3 shadow-lg pt-3"
-                  action="<?= base_url('/user/edit/') . $edit_id ?>"
+                  action="<?= base_url("/user/$edit_id/edit") ?>"
                   method="post" enctype="multipart/form-data">
                 <!-- back button  -->
                 <div class="row position-absolute" style="transform: translate(-10%, -50%);">
-                    <a href="<?= base_url('/user/list') ?>" class="btn btn-dark "><i class="fa-solid fa-arrow-left pe-3"></i> Go
+                    <a href="<?= base_url('/user/list') ?>"
+                       class="btn btn-dark "><i class="fa-solid fa-arrow-left pe-3"></i> Go
                         Back</a>
                 </div>
                 <div class="row">
@@ -131,9 +132,8 @@
                             <!-- Country of Residence-->
                             <div class="col-12 col-lg-6 my-2">
                                 <label for="country" class="form-label fw-medium fs-5">Country</label>
-                                <select class="form-select" aria-label="country" name="country"
-                                        onchange="loadState()">
-                                    <option selected disabled>-- Select Highest Qualification --</option>
+                                <select id="countryDropdown" class="form-select" aria-label="country" name="country">
+                                    <option value="" selected disabled>-- Select city --</option>
                                     <!-- load your country options here  -->
                                     <?php if (isset($countries)): ?>
                                         <?php foreach ($countries as $country): ?>
@@ -146,23 +146,17 @@
                             <!-- State of Residence-->
                             <div class="col-12 col-lg-6 my-2">
                                 <label for="state" class="form-label fw-medium fs-5">State of Residence</label>
-                                <select id="stateDropdown" class="form-select" aria-label="state" name="state"
-                                        onchange="loadCity()">
-                                    <option selected disabled>-- Select state --</option>
+                                <select id="stateDropdown" class="form-select" aria-label="state" name="state" disabled>
+                                    <option value="" disabled selected>-- Select state --</option>
                                     <!-- load your state options here  -->
-                                    <?php if (isset(session()->states)): ?>
-                                        <?php foreach (session()->states as $state): ?>
-                                            <option value="<? # $state[0]->id    ?>" <?# $user[0]->country_id === $country ? 'selected' : NULL    ?>><? #$country[0]->name    ?></option>
-                                        <?php endforeach; ?>
-                                    <?php endif; ?>
                                 </select>
                             </div>
 
                             <!-- City of Residence-->
                             <div class="col-12 col-lg-6 my-2">
                                 <label for="city" class="form-label fw-medium fs-5">City of Residence</label>
-                                <select class="form-select" aria-label="city" name="city" disabled>
-                                    <option selected >-- Select Highest Qualification --</option>
+                                <select id="cityDropdown" class="form-select" aria-label="city" name="city" disabled>
+                                    <option value="" disabled selected>-- Select city --</option>
                                     <!-- load your city options here  -->
                                 </select>
                             </div>
@@ -296,9 +290,9 @@
                                 <span class="fs-5 fw-medium">Upload a Profile Picture</span>
                                 <div class="input-group">
                                     <span class="input-group-text fs-4 px-3"><i class="fa-solid fa-id-badge"></i></span>
-                                    <input class="form-control" type="file" name="profile_pic" id="profile_pic"
-                                           value="<?= $user[0]->pic_name ?? NULL ?>">
+                                    <input class="form-control" type="file" name="profile_pic" id="profile_pic">
                                 </div>
+                                <label for="profile_pic"><?= $user[0]->pic_name ?? NULL ?></label>
                             </div>
 
                             <!-- sign pic  -->
@@ -306,9 +300,10 @@
                                 <span class="fs-5 fw-medium">Upload a Signature Picture</span>
                                 <div class="input-group">
                                     <span class="input-group-text fs-4 px-3"><i class="fa-solid fa-signature"></i></span>
-                                    <input class="form-control" type="file" name="sign_pic" id="sign_pic"
-                                           value="<?= $user[0]->sign_pic_name ?? NULL ?>">
+                                    <input class="form-control" type="file" name="sign_pic" id="sign_pic">
                                 </div>
+                                <label for="profile_pic"><?= $user[0]->sign_pic_name ?? NULL ?></label>
+
                             </div>
                         </div>
 
