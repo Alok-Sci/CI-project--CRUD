@@ -41,15 +41,15 @@
                             <div class="row gy-2 overflow-hidden">
                                 <div class="col-12 col-lg-4">
                                     <div class="row">
-                                        <img class="border border-dark rounded-3 shadow-sm img-fluid mx-auto"
-                                             src="<?= base_url('/uploads/') . $user[0]->pic_name ?>" alt="User Avatar"
-                                             width="200px" height="270px" style="max-width: 300px;">
+                                        <img class="border border-dark rounded-3 shadow-sm img-fluid mx-auto p-0 object-fit-cover"
+                                             src="<?= base_url('uploads/profile/') . $user[0]->pic_name ?>" alt="User Avatar"
+                                             width="200px" height="270px" style="min-height: 400px; max-height: 400px; max-width: 300px;">
                                     </div>
                                     <div class="row mt-2">
-                                        <img class="border border-dark rounded-3 shadow-sm img-fluid mx-auto"
-                                             src="<?= base_url('/uploads/') . $user[0]->sign_pic_name ?>"
-                                             alt="User Avatar"
-                                             width="200px" height="100px" style="max-width: 300px;">
+                                        <img class="border border-dark rounded-3 shadow-sm img-fluid mx-auto p-0 object-fit-cover"
+                                             src="<?= base_url('uploads/sign/') . $user[0]->sign_pic_name ?>"
+                                             alt="User Sign"
+                                             width="200px" height="100px" style="min-height: 100px; max-width: 300px; max-height: 100px">
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-8 fs-6 fs-lg-4">
