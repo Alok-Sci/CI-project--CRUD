@@ -88,15 +88,15 @@ class AdminController extends BaseController
     public function logout()
     {
         // destroy session 
-        $session = session();
+        // $session = session();
 
-        if (!session()->logged_in)
+        if (!session()->logged_in) {
             return redirect()->to('/admin/login')->with('error', 'You are not logged in');
-            
-        $session->set('logged_in', false);
-
-        if ($session->destroy())
-            return redirect()->to('admin/login')->with('success', 'Logout Successfull');
+        } else {
+            session()->set('logged_in', false);
+            session()->destroy();
+            return redirect()->to('/admin/login')->with('success', 'Logout Successfull');
+        }
     }
 
 
