@@ -233,34 +233,71 @@ class UserController extends BaseController
     public function loadStateByCountry($country_id)
     {
         if ($this->request->isAJAX()) {
-            $states = $this->userModel->getStateByCountry($country_id);
-            // echo "<pre>";
-            // print_r($states);
-            // echo "</pre>";
-            // session()->set('states', $states);
 
-            foreach ($states as $state) {
-                echo "<option value=\"$state->id\">$state->name</option>";
+            // get user id from session 
+            $user_id = session()->edit_id; //emptied the flash data
+            session()->setFlashdata('edit_id', $user_id); // set the flash data for next use
+
+
+            // if the requester page is user/add then response will be states 
+            if (!$user_id) {
+                $states = $this->userModel->getStateByCountry($country_id);
+
+                foreach ($states as $state) {
+                    echo "<option value=\"$state->id\" >$state->name</option>";
+                }
+            } else if ($user_id) {
+                $userSelected = $this->userModel->getSelectedStateByCountry($user_id, $country_id);
+                $states       = $this->userModel->getStateByCountry($country_id);
+
+                foreach ($states as $state) {
+                    $selected = $userSelected[0]->state_id === $state->id ? 'selected' : NULL;
+                    echo "<option value=\"$state->id\" " . $selected . " >$state->name</option>";
+                }
+
+            } else {
+                echo 'Not a valid request';
             }
             // echo json_encode($states);
         } else {
-           echo 'Cannot access the page';
+            echo 'Cannot access the page';
         }
 
     }
 
     public function loadCityByStateAndCountry($country_id, $state_id)
     {
-        if ($this->request->isAJAX()) {
-            $cities = $this->userModel->getCityByStateAndCountry($country_id, $state_id);
-            // echo "<pre>";
-            // print_r($cities);
-            // echo "</pre>";
-            // session()->set('cities', $cities);
 
-            foreach ($cities as $city) {
-                echo "<option value=\"$city->id\">$city->name</option>";
+        if ($this->request->isAJAX()) {
+
+            // get user id from session 
+            $user_id = session()->edit_id;
+            // $user_id = 3;
+
+            // if the requester page is user/add then response will be states 
+            if (!$user_id) {
+                // echo "hello";
+                $cities = $this->userModel->getCityByStateAndCountry($country_id, $state_id);
+
+                foreach ($cities as $city) {
+                    echo "<option value=\"$city->id\">$city->name</option>";
+                }
+            } else if ($user_id) {
+                // echo "hello";
+                $userSelected = $this->userModel->getSelectedCityByStateAndCountry($user_id, $country_id, $state_id);
+                $cities       = $this->userModel->getCityByStateAndCountry($country_id, $state_id);
+
+                print_r($userSelected);
+                print_r($cities);
+
+                foreach ($cities as $city) {
+                    $selected = $userSelected[0]->city_id === $city->id ? 'selected' : NULL;
+                    echo "<option value=\"$city->id\" " . $selected . " >$city->name</option>";
+                }
+            } else {
+                echo 'Not a valid request';
             }
+
         } else {
             echo 'Cannot access the page';
         }
