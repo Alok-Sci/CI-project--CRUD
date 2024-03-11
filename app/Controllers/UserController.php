@@ -70,8 +70,8 @@ class UserController extends BaseController
                     $data['qualification'] = $this->request->getPost('qualification');
                     $data['tech_skills']   = implode(",", $this->request->getPost('tech_skills'));
                     $data['description']   = $this->request->getPost('description');
-                    $data['profile_pic']   = $this->request->getFile('profile_pic')->getName();
-                    $data['sign_pic']      = $this->request->getFile('sign_pic')->getName();
+                    $data['profile_pic']   = $this->request->getFile('profile_pic')->getName().time();
+                    $data['sign_pic']      = $this->request->getFile('sign_pic')->getName().time();
 
 
                     // echo "<pre>";
@@ -81,8 +81,8 @@ class UserController extends BaseController
                     $added = $this->userModel->add($data);
                     if ($added) {
                         // move file to uploads folder
-                        $this->request->getFile('profile_pic')->move(WRITEPATH . 'uploads/profile', $data['profile_pic']);
-                        $this->request->getFile('sign_pic')->move(WRITEPATH . 'uploads/sign', $data['sign_pic']);
+                        $this->request->getFile('profile_pic')->move(FCPATH . 'uploads/profile', $data['profile_pic']);
+                        $this->request->getFile('sign_pic')->move(FCPATH . 'uploads/sign', $data['sign_pic']);
 
                         return redirect()->to('user/add')->with('success', 'User record added successfully');
                     } else {
