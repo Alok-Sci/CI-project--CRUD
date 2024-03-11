@@ -102,7 +102,8 @@ class UserController extends BaseController
                     'title' => 'Add User',
                     'admin_name' => session()->admin_name,
                     'main_content' => 'add_user',
-                    'countries' => $countries
+                    'countries' => $countries,
+                    'errors' => session()->getFlashData('errors') ?? NULL
                 ];
                 echo view('templates/template', $data);
             } else {
