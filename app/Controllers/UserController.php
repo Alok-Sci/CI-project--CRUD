@@ -38,8 +38,8 @@ class UserController extends BaseController
                 $rules = [
                     'firstname' => 'required|alpha|min_length[3]|max_length[50]',
                     'lastname' => 'required|alpha|min_length[3]|max_length[50]',
-                    'fathername' => 'required|alpha|min_length[3]|max_length[50]',
-                    'mothername' => 'required|alpha|min_length[3]|max_length[50]',
+                    'fathername' => 'required|alpha_space|min_length[3]|max_length[50]',
+                    'mothername' => 'required|alpha_space|min_length[3]|max_length[50]',
                     'email' => 'required|valid_email|min_length[10]',
                     'dob' => 'required|valid_date',
                     'gender' => 'required|alpha|max_length[6]',
