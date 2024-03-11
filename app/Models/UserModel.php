@@ -65,9 +65,13 @@ class UserModel extends Model
             'qualification' => $updated_data['qualification'],
             'tech_skills' => $updated_data['tech_skills'],
             'description' => $updated_data['description'],
-            'pic_name' => $updated_data['profile_pic'],
-            'sign_pic_name' => $updated_data['sign_pic']
         ];
+        if(isset($updated_data['profile_pic'])){
+            $data['pic_name'] = $updated_data['profile_pic'];
+        }
+        if(isset($updated_data['sign_pic'])) {
+            $data['sign_pic_name'] = $updated_data['sign_pic'];
+        }
         return $this->db->table('tbl_user')->where(['id' => $user_id])->update($data);
     }
 
