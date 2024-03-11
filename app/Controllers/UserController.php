@@ -48,10 +48,10 @@ class UserController extends BaseController
                     'city' => 'required|integer',
                     'pincode' => 'required|integer|exact_length[6]',
                     'qualification' => 'required|alpha',
-                    'tech_skills' => 'required|alpha',
+                    'tech_skills' => 'required',
                     'description' => 'required|string|min_length[20]|max_length[200]', 
-                    'profile_pic' => 'uploaded[profile_pic]|is_image[profile_pic]|max_dims[profile_pic, 300, 100]|max_size[profile_pic, 1024]', 
-                    'sign_pic' => 'uploaded[sign_pic]|is_image[sign_pic]|max_dims[sign_pic, 300, 100]|max_size[sign_pic, 1024]' 
+                    'profile_pic' => 'uploaded[profile_pic]|is_image[profile_pic]|max_size[profile_pic, 5140]', 
+                    'sign_pic' => 'uploaded[sign_pic]|is_image[sign_pic]|max_size[sign_pic, 2048]' 
                 ];
 
                 if ($this->validate($rules)) {

@@ -38,6 +38,9 @@
                 <?php endif; ?>
               </div>
 
+              <!-- include form helper  -->
+              <?php helper('form') ?>
+
               <!-- form main content -->
               <div class="row gy-2 overflow-hidden">
 
@@ -48,12 +51,12 @@
                   </div>
                   <div class="input-group mb-3">
                     <span class="form-floating">
-                    <input type="text" class="form-control <?= isset($errors['firstname']) ? 'border border-danger text-danger' : NULL ?>" placeholder="firstname" aria-label="firstname" name="firstname">
+                    <input type="text" class="form-control <?= isset($errors['firstname']) ? 'border border-danger text-danger' : NULL ?>" placeholder="firstname" aria-label="firstname" name="firstname" value="<?= old('firstname') ?>">
                     <label for="firstname" class="form-label <?= isset($errors['firstname']) ? 'text-danger' : NULL ?>">First Name</label>
                   </span>
                     <span class="input-group-text"><i class="fa-solid fa-user px-2"></i></span>
                     <span class="form-floating">
-                    <input type="text" class="form-control <?= isset($errors['lastname']) ? 'border border-danger text-danger' : NULL ?>" placeholder="lastname" aria-label="lastname" name="lastname">
+                    <input type="text" class="form-control <?= isset($errors['lastname']) ? 'border border-danger text-danger' : NULL ?>" placeholder="lastname" aria-label="lastname" name="lastname" value="<?= old('lastname') ?>">
                     <label for="lastname" class="form-label <?= isset($errors['lastname']) ? 'text-danger' : NULL ?>">Last Name</label>
                   </span>
                   </div>
@@ -66,6 +69,7 @@
                     <input type="text"
                            class="form-control <?= isset($errors['fathername']) ? 'border border-danger text-danger' : NULL ?>"
                            name="fathername" id="fathername"
+                           value="<?= old('fathername') ?>"
                            placeholder="John Doe"
                            required>
                     <label for="fathername"
@@ -78,11 +82,13 @@
                 <!-- mother name -->
                 <div class="col-12 col-lg-6">
                   <div class="d-flex text-end">
-                    <span class="text-danger text-right"><?= $errors['mothername'] ?? NULL ?></span></div>
+                    <span class="text-danger text-right"><?= $errors['mothername'] ?? NULL ?></span>
+                  </div>
                   <div class="form-floating mb-3">
                     <input type="text"
                            class="form-control <?= isset($errors['mothername']) ? 'border border-danger text-danger' : NULL ?>"
                            name="mothername" id="mothername"
+                           value="<?= old('mothername') ?>"
                            placeholder="John Doe"
                            required>
                     <label for="mothername"
@@ -99,12 +105,12 @@
                   <div class="form-floating mb-3">
                     <input type="email"
                            class="form-control <?= isset($errors['email']) ? 'border border-danger text-danger' : NULL ?>"
-                           name="email" id="email" value=""
+                           name="email" id="email"
+                           value="<?= old('email') ?>"
                            placeholder="john@doe.com" required>
                     <label for="email"
                            class="form-label <?= isset($errors['email']) ? 'text-danger' : NULL ?> me-auto">Email
                   </div>
-
                 </div>
 
                 <!-- gender -->
@@ -117,11 +123,11 @@
                   </div>
                   <div class="row ps-4 ">
                     <span class="col-auto form-check mb-3">
-                    <input type="radio" class="form-check-input <?= isset($errors['gender']) ? 'border border-danger' : NULL ?>" name="gender" id="male" value="male">
+                    <input type="radio" class="form-check-input <?= isset($errors['gender']) ? 'border border-danger' : NULL ?>" name="gender" id="male" value="male" <?= old('gender') === 'male' ? 'checked' : NULL ?>>
                     <label for="male" class="form-check-label">Male</label>
                   </span>
                     <span class="col-auto form-check mb-3">
-                    <input type="radio" class="form-check-input <?= isset($errors['gender']) ? 'border border-danger' : NULL ?>" name="gender" id="female" value="female">
+                    <input type="radio" class="form-check-input <?= isset($errors['gender']) ? 'border border-danger' : NULL ?>" name="gender" id="female" value="female" <?= old('gender') === 'female' ? 'checked' : NULL ?>>
                     <label for="female" class="form-check-label">Female</label>
                   </span>
                   </div>
@@ -137,6 +143,7 @@
                   </div>
                   <input type="date"
                          class="form-control <?= isset($errors['dob']) ? 'border border-danger' : NULL ?>"
+                         value="<?= old('dob') ?>"
                          name="dob" id="dob">
                 </div>
 
@@ -151,12 +158,18 @@
                   <select class="form-select <?= isset($errors['qualification']) ? 'border border-danger' : NULL ?>"
                           aria-label="qualification" name="qualification">
                     <option selected disabled>-- Select Highest Qualification --</option>
-                    <option value="high_school">High School Diploma</option>
-                    <option value="associates">Associate's Degree</option>
-                    <option value="bachelors">Bachelor's Degree</option>
-                    <option value="masters">Master's Degree</option>
-                    <option value="doctorate">Doctorate/Ph.D.</option>
-                    <option value="professional">Professional Certification</option>
+                    <option value="high_school" <?= old('qualification') === 'high_school' ? 'selected' : NULL ?>>High
+                      School Diploma</option>
+                    <option value="associates" <?= old('qualification') === 'associates' ? 'selected' : NULL ?>>Associate's
+                      Degree</option>
+                    <option value="bachelors" <?= old('qualification') === 'bachelors' ? 'selected' : NULL ?>>Bachelor's
+                      Degree</option>
+                    <option value="masters" <?= old('qualification') === 'masters' ? 'selected' : NULL ?>>Master's Degree
+                    </option>
+                    <option value="doctorate" <?= old('qualification') === 'doctorate' ? 'selected' : NULL ?>>
+                      Doctorate/Ph.D.</option>
+                    <option value="professional" <?= old('qualification') === 'professional' ? 'selected' : NULL ?>>
+                      Professional Certification</option>
                   </select>
                 </div>
 
@@ -175,7 +188,8 @@
                     <!-- load your country options here  -->
                     <?php if (isset($countries)): ?>
                       <?php foreach ($countries as $country): ?>
-                        <option value="<?= $country->id ?>"><?= $country->name ?></option>
+                        <option value="<?= $country->id ?>" <?= old('country') === $country->id ? 'selected' : NULL ?>>
+                          <?= $country->name ?></option>
                       <?php endforeach; ?>
                     <?php endif; ?>
                   </select>
@@ -224,6 +238,7 @@
                   <div class="input-group">
                     <span class="input-group-text"><i class="fa-solid fa-map-pin px-3"></i></span>
                     <input type="number" name="pincode" maxlength="6" id="pincode"
+                           value="<?= old('pincode') ?>"
                            class="form-control <?= isset($errors['pincode']) ? 'border border-danger text-danger' : NULL ?>"
                            placeholder="Enter your pincode">
                   </div>
@@ -240,61 +255,74 @@
                   <div id="techSkillsGroup"
                        class="row ps-3 bg-blue ">
                     <div class="col-12 col-md-6 col-lg-3 form-check">
-                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="html" value="html">
+                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="html" value="html"
+                             <?= in_array('html', old('tech_skills') ?? []) ? 'checked' : NULL ?>>
                       <label for="html" class="form-check-label">HTML</label>
                     </div>
                     <div class="col-12 col-md-6 col-lg-3 form-check">
-                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="css" value="css">
+                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="css" value="css"
+                             <?= in_array('css', old('tech_skills') ?? []) ? 'checked' : NULL ?>>
                       <label for="css" class="form-check-label">CSS</label>
                     </div>
                     <div class="col-12 col-md-6 col-lg-3 form-check">
-                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="js" value="js">
+                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="js" value="js"
+                             <?= in_array('js', old('tech_skills') ?? []) ? 'checked' : NULL ?>>
                       <label for="js" class="form-check-label">JavaScript</label>
                     </div>
                     <div class="col-12 col-md-6 col-lg-3 form-check">
-                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="php" value="php">
+                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="php" value="php"
+                             <?= in_array('php', old('tech_skills') ?? []) ? 'checked' : NULL ?>>
                       <label for="php" class="form-check-label">PHP</label>
                     </div>
                     <div class="col-12 col-md-6 col-lg-3 form-check">
-                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="git" value="git">
+                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="git" value="git"
+                             <?= in_array('git', old('tech_skills') ?? []) ? 'checked' : NULL ?>>
                       <label for="git" class="form-check-label">Git</label>
                     </div>
 
                     <div class="col-12 col-md-6 col-lg-3 form-check">
                       <input type="checkbox" class="form-check-input" name="tech_skills[]" id="tailwind"
-                             value="tailwind">
+                             value="tailwind" <?= in_array('tailwind', old('tech_skills') ?? []) ? 'checked' : NULL ?>>
                       <label for="tailwind" class="form-check-label">Tailwind CSS</label>
                     </div>
                     <div class="col-12 col-md-6 col-lg-3 form-check">
-                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="json" value="json">
+                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="json" value="json"
+                             <?= in_array('json', old('tech_skills') ?? []) ? 'checked' : NULL ?>>
                       <label for="json" class="form-check-label">JSON</label>
                     </div>
                     <div class="col-12 col-md-6 col-lg-3 form-check">
-                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="sql" value="sql">
+                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="sql" value="sql"
+                             <?= in_array('sql', old('tech_skills') ?? []) ? 'checked' : NULL ?>>
                       <label for="sql" class="form-check-label">MySQL</label>
                     </div>
                     <div class="col-12 col-md-6 col-lg-3 form-check">
-                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="react" value="react">
+                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="react" value="react"
+                             <?= in_array('react', old('tech_skills') ?? []) ? 'checked' : NULL ?>>
                       <label for="react" class="form-check-label">React.js</label>
                     </div>
                     <div class="col-12 col-md-6 col-lg-3 form-check">
-                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="angular" value="angular">
+                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="angular" value="angular"
+                             <?= in_array('angular', old('tech_skills') ?? []) ? 'checked' : NULL ?>>
                       <label for="angular" class="form-check-label">Angular.js</label>
                     </div>
                     <div class="col-12 col-md-6 col-lg-3 form-check">
-                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="jquery" value="jquery">
+                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="jquery" value="jquery"
+                             <?= in_array('jquery', old('tech_skills') ?? []) ? 'checked' : NULL ?>>
                       <label for="jquery" class="form-check-label">JQuery</label>
                     </div>
                     <div class="col-12 col-md-6 col-lg-3 form-check">
-                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="nodejs" value="nodejs">
+                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="nodejs" value="nodejs"
+                             <?= in_array('nodejs', old('tech_skills') ?? []) ? 'checked' : NULL ?>>
                       <label for="nodejs" class="form-check-label">Node.js</label>
                     </div>
                     <div class="col-12 col-md-6 col-lg-3 form-check">
-                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="laravel" value="laravel">
+                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="laravel" value="laravel"
+                             <?= in_array('laravel', old('tech_skills') ?? []) ? 'checked' : NULL ?>>
                       <label for="laravel" class="form-check-label">Laravel PHP framework</label>
                     </div>
                     <div class="col-12 col-md-6 col-lg-3 form-check">
-                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="ci" value="ci">
+                      <input type="checkbox" class="form-check-input" name="tech_skills[]" id="ci" value="ci"
+                             <?= in_array('ci', old('tech_skills') ?? []) ? 'checked' : NULL ?>>
                       <label for="ci" class="form-check-label">CodeIgniter PHP framework</label>
                     </div>
                   </div>
@@ -310,14 +338,14 @@
                   </div>
                   <textarea class="form-control <?= isset($errors['description']) ? 'border border-danger' : NULL ?>"
                             name="description" id="" cols="30" rows="4"
-                            placeholder="Write some remarks about the user..."></textarea>
+                            placeholder="Write some remarks about the user..."><?= old('description') ?></textarea>
                 </div>
 
                 <!-- profile pic  -->
                 <div class="col-12 col-lg-6">
                   <div class="d-flex justify-content-between">
                     <span class="fs-5 fw-medium <?= isset($errors['profile_pic']) ? 'text-danger' : NULL ?>">Upload a Profile Picture</span>
-                    <span class="text-danger" ><?= $errors['tech_skills'] ?? NULL ?></span>
+                    <span class="text-danger" ><?= $errors['profile_pic'] ?? NULL ?></span>
                   </div>
                   <div class="input-group">
                     <span class="input-group-text fs-4 px-3"><i class="fa-solid fa-id-badge"></i></span>
@@ -330,7 +358,7 @@
                 <div class="col-12 col-lg-6">
                   <div class="d-flex justify-content-between">
                     <span class="fs-5 fw-medium <?= isset($errors['sign_pic']) ? 'text-danger' : NULL ?>">Upload a Signature Picture</span>
-                    <span class="text-danger" ><?= $errors['tech_skills'] ?? NULL ?></span>
+                    <span class="text-danger" ><?= $errors['sign_pic'] ?? NULL ?></span>
                   </div>
                   <div class="input-group">
                     <span class="input-group-text fs-4 px-3"><i class="fa-solid fa-signature"></i></span>
