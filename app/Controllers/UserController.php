@@ -33,36 +33,65 @@ class UserController extends BaseController
         // $session = session();
         if (isset(session()->logged_in)) {
             if ($this->request->getMethod() === 'post') {
-                $data['firstname']     = $this->request->getPost('firstname');
-                $data['lastname']      = $this->request->getPost('lastname');
-                $data['fathername']    = $this->request->getPost('fathername');
-                $data['mothername']    = $this->request->getPost('mothername');
-                $data['email']         = $this->request->getPost('email');
-                $data['dob']           = $this->request->getPost('dob');
-                $data['gender']        = $this->request->getPost('gender');
-                $data['country']       = $this->request->getPost('country');
-                $data['state']         = $this->request->getPost('state');
-                $data['city']          = $this->request->getPost('city');
-                $data['pincode']       = $this->request->getPost('pincode');
-                $data['qualification'] = $this->request->getPost('qualification');
-                $data['tech_skills']   = implode(",", $this->request->getPost('tech_skills'));
-                $data['description']   = $this->request->getPost('description');
-                $data['profile_pic']   = $this->request->getFile('profile_pic')->getName();
-                $data['sign_pic']      = $this->request->getFile('sign_pic')->getName();
 
-                // echo "<pre>";
-                // print_r($data);
-                // echo "</pre>";
+                // set rules for validation 
+                $rules = [
+                    'firstname' => 'required|alpha|min_length[3]|max_length[50]',
+                    'lastname' => 'required|alpha|min_length[3]|max_length[50]',
+                    'fathername' => 'required|alpha|min_length[3]|max_length[50]',
+                    'mothername' => 'required|alpha|min_length[3]|max_length[50]',
+                    'email' => 'required|valid_email|min_length[10]',
+                    'dob' => 'required|valid_date',
+                    'gender' => 'required|alpha|max_length[6]',
+                    'country' => 'required|integer',
+                    'state' => 'required|integer',
+                    'city' => 'required|integer',
+                    'pincode' => 'required|integer|exact_length[6]',
+                    'qualification' => 'required|alpha',
+                    'tech_skills' => 'required|alpha',
+                    'description' => 'required|string|min_length[20]|max_length[200]', 
+                    'profile_pic' => 'uploaded[profile_pic]|is_image[profile_pic]|max_dims[profile_pic, 300, 100]|max_size[profile_pic, 1024]', 
+                    'sign_pic' => 'uploaded[sign_pic]|is_image[sign_pic]|max_dims[sign_pic, 300, 100]|max_size[sign_pic, 1024]' 
+                ];
 
-                $added = $this->userModel->add($data);
-                if ($added) {
-                    // move file to uploads folder
-                    $this->request->getFile('profile_pic')->move(WRITEPATH . 'uploads/profile', $data['profile_pic']);
-                    $this->request->getFile('sign_pic')->move(WRITEPATH . 'uploads/sign', $data['sign_pic']);
+                if ($this->validate($rules)) {
 
-                    return redirect()->to('user/add')->with('success', 'User record added successfully');
-                } else {
-                    return redirect()->to('user/add')->with('error', 'Some error occurred, Can\'t add user record');
+                    $data['firstname']     = $this->request->getPost('firstname');
+                    $data['lastname']      = $this->request->getPost('lastname');
+                    $data['fathername']    = $this->request->getPost('fathername');
+                    $data['mothername']    = $this->request->getPost('mothername');
+                    $data['email']         = $this->request->getPost('email');
+                    $data['dob']           = $this->request->getPost('dob');
+                    $data['gender']        = $this->request->getPost('gender');
+                    $data['country']       = $this->request->getPost('country');
+                    $data['state']         = $this->request->getPost('state');
+                    $data['city']          = $this->request->getPost('city');
+                    $data['pincode']       = $this->request->getPost('pincode');
+                    $data['qualification'] = $this->request->getPost('qualification');
+                    $data['tech_skills']   = implode(",", $this->request->getPost('tech_skills'));
+                    $data['description']   = $this->request->getPost('description');
+                    $data['profile_pic']   = $this->request->getFile('profile_pic')->getName();
+                    $data['sign_pic']      = $this->request->getFile('sign_pic')->getName();
+
+
+                    // echo "<pre>";
+                    // print_r($data);
+                    // echo "</pre>";
+
+                    $added = $this->userModel->add($data);
+                    if ($added) {
+                        // move file to uploads folder
+                        $this->request->getFile('profile_pic')->move(WRITEPATH . 'uploads/profile', $data['profile_pic']);
+                        $this->request->getFile('sign_pic')->move(WRITEPATH . 'uploads/sign', $data['sign_pic']);
+
+                        return redirect()->to('user/add')->with('success', 'User record added successfully');
+                    } else {
+                        return redirect()->to('user/add')->with('error', 'Some error occurred, Can\'t add user record');
+                    }
+                } 
+                else {
+                    // redirect to the previous page and return the validation errors by storing them in field_error variable 
+                    return redirect()->back()->with('errors', $this->validator->getErrors());
                 }
             } else if ($this->request->getMethod() === 'get') {
                 // return redirect()->back()->with('error', 'Some error occurred! Please try again later');
