@@ -91,7 +91,7 @@ class UserController extends BaseController
                 } 
                 else {
                     // redirect to the previous page and return the validation errors by storing them in field_error variable 
-                    return redirect()->back()->with('errors', $this->validator->getErrors());
+                    return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
                 }
             } else if ($this->request->getMethod() === 'get') {
                 // return redirect()->back()->with('error', 'Some error occurred! Please try again later');
