@@ -68,7 +68,7 @@ class AdminController extends BaseController
 
                 } else {
                     // print_r($admin);
-                    return redirect()->back()->with('error', 'Invalid username or password');
+                    return redirect()->back()->withInput()->with('error', 'Invalid username or password');
                 }
             } else {
                 $data = [

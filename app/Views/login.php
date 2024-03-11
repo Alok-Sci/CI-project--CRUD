@@ -11,12 +11,15 @@
             </div>
             <h2 class="fs-6 fw-normal text-center text-secondary mb-4">Sign in to your account</h2>
 
+            <?php helper('form') ?>
+
             <form action="<?= site_url('admin/login'); ?>" method="post">
               <div class="row gy-2 overflow-hidden">
                 <div class="col-12">
                   <div class="form-floating mb-3">
                     <input type="email" class="form-control" name="username" id="username"
                            placeholder="name@example.com"
+                           value="<?= old('username') ?>"
                            required>
                     <label for="email" class="form-label">Email</label>
                   </div>
