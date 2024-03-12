@@ -57,8 +57,8 @@ class UserController extends BaseController
                 $added = $this->userModel->add($data);
                 if ($added) {
                     // move file to uploads folder
-                    $this->request->getFile('profile_pic')->move(WRITEPATH . 'uploads/profile', $data['profile_pic']);
-                    $this->request->getFile('sign_pic')->move(WRITEPATH . 'uploads/sign', $data['sign_pic']);
+                    $this->request->getFile('profile_pic')->move(FCPATH . 'uploads/profile', $data['profile_pic']);
+                    $this->request->getFile('sign_pic')->move(FCPATH . 'uploads/sign', $data['sign_pic']);
 
                     return redirect()->to('user/add')->with('success', 'User record added successfully');
                 } else {
@@ -224,21 +224,27 @@ class UserController extends BaseController
     }
 
     // load all countries 
-    public function loadCountry()
+    public function loadCountryJson()
     {
-        echo $this->userModel->getCountry();
+        if ($this->request->isAJAX()) {
+            echo json_encode($this->userModel->getCountry());
+        }
     }
 
     // load all states 
-    public function loadState()
+    public function loadStateByCountryJson($country_id)
     {
-        echo $this->userModel->getState();
+        if ($this->request->isAJAX()) {
+            echo json_encode($this->userModel->getStateByCountry($country_id));
+        }
     }
 
     // load all cities
-    public function loadCity()
+    public function loadCityByStateAndCountryJson($country_id, $state_id)
     {
-        echo $this->userModel->getCountry();
+        if ($this->request->isAJAX()) {
+            echo json_encode($this->userModel->getCityByStateAndCountry($country_id, $state_id));
+        }
     }
 
     // load states using country id  for ajax only 
