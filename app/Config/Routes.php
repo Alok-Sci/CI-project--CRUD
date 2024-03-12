@@ -25,5 +25,10 @@ $routes->post('user/(:num)/edit', 'UserController::editUser/$1');
 $routes->get('user/(:num)/view', 'UserController::viewUser/$1');
 $routes->get('user/(:num)/delete', 'UserController::deleteUser/$1');
 
-$routes->get('user/country/(:num)', 'UserController::loadStateByCountry/$1');
-$routes->get('user/country/(:num)/state/(:num)', 'UserController::loadCityByStateAndCountry/$1/$2');
+$routes->get('user/country', 'UserController::loadCountryJson');
+$routes->get('user/country/(:num)', 'UserController::loadStateByCountryJson/$1');
+$routes->get('user/country/(:num)/state/(:num)', 'UserController::loadCityByStateAndCountryJson/$1/$2');
+
+// $routes->get('user/country', 'UserController::loadCountry');
+// $routes->get('user/country/(:num)', 'UserController::loadStateByCountry/$1');
+// $routes->get('user/country/(:num)/state/(:num)', 'UserController::loadCityByStateAndCountry/$1/$2');
