@@ -50,9 +50,9 @@
 
 </footer>
 
-<script src="<?= base_url('js/ajax.js') ?>"></script>
-<script src="<?= FCPATH.'js/jquery-3.7.1.min.js' ?>"></script>
-<script src="<?= FCPATH.'js/dropdown_ul_li.js' ?>"></script>
+<!-- <script src="<? #base_url('js/ajax.js') ?>"></script> -->
+<script src="<?= base_url('js/jquery-3.7.1.min.js') ?>"></script>
+<script src="<?= base_url('js/dropdown_ul_li.js') ?>"></script>
 </body>
 
 </html>
