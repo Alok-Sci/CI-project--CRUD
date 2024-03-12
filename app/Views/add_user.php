@@ -126,15 +126,13 @@
                 <!-- Country of Residence-->
                 <div class="col-12 col-lg-6 my-2">
                   <label for="country" class="form-label fw-medium fs-5">Country</label>
-                  <select id="countryDropdown" class="form-select" aria-label="country" name="country">
-                    <option value="" selected disabled>-- Select Highest Qualification --</option>
-                    <!-- load your country options here  -->
-                    <?php if (isset($countries)): ?>
-                      <?php foreach ($countries as $country): ?>
-                        <option value="<?= $country->id ?>"><?= $country->name ?></option>
-                      <?php endforeach; ?>
-                    <?php endif; ?>
-                  </select>
+                  <div id="countryDropdown" class="position-relative">
+                    <button class=" btn btn-light border w-100 text-start d-flex justify-content-between align-items-center" type="button"><span>-- Select Country -- </span><i class="fa-solid fa-chevron-down fa-xs"></i></button>
+                    <input type="hidden" name="country">
+                    <ul class=" border border-1 d-none rounded-3 list-unstyled position-absolute top-100 right-0 left-0 w-100 bg-light" style="z-index: 99999;">
+                    <!-- country dropdown items will be listed here -->
+                    </ul>
+                  </div>
                 </div>
 
 
@@ -142,17 +140,27 @@
                 <!-- State of Residence-->
                 <div class="col-12 col-lg-6 my-2">
                   <label for="state" class="form-label fw-medium fs-5">State of Residence</label>
-                  <select id="stateDropdown" class="form-select" aria-label="state" name="state">
-                    <option value="" disabled selected>-- Select state --</option>
-                  </select>
+                  <div id="stateDropdown" class="position-relative">
+                    <button class=" btn btn-light border w-100 text-start d-flex justify-content-between align-items-center" type="button"><span>-- Select State -- </span><i class="fa-solid fa-chevron-down fa-xs"></i></button>
+                    <input type="hidden" name="state">
+
+                    <ul class=" border border-1 d-none rounded-3 list-unstyled position-absolute top-100 right-0 left-0 w-100 bg-light" style="z-index: 99999;">
+                    <!-- state dropdown items will be listed here -->
+                    </ul>
+                  </div>
                 </div>
 
                 <!-- City of Residence-->
                 <div class="col-12 col-lg-6 my-2">
                   <label for="city" class="form-label fw-medium fs-5">City of Residence</label>
-                  <select id="cityDropdown" class="form-select" aria-label="city" name="city">
-                    <option value="" disabled selected>-- Select city --</option>
-                  </select>
+                  <div id="cityDropdown" class="position-relative">
+                    <button class=" btn btn-light border w-100 text-start d-flex justify-content-between align-items-center" type="button"><span>-- Select City -- </span><i class="fa-solid fa-chevron-down fa-xs"></i></button>
+                    <input type="hidden" name="city">
+
+                    <ul class=" border border-1 d-none rounded-3 list-unstyled position-absolute top-100 right-0 left-0 w-100 bg-light" style="z-index: 99999;">
+                    <!-- city dropdown items will be listed here -->
+                    </ul>
+                  </div>
                 </div>
 
                 <!-- pincode -->
